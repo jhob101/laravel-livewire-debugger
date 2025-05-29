@@ -13,7 +13,7 @@ export default {
             type: Number
         },
         livewireProperties: {
-            type: Object
+            type: Object|Array
         }
     },
     watch: {
