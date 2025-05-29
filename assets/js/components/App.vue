@@ -18,8 +18,6 @@ export default {
 
     // Set up hook for Livewire updates
     if (window.Livewire) {
-      // Livewire 3 uses different hooks
-      if (typeof window.Livewire.hook === 'function') {
         // Listen for various Livewire 3 events that might indicate component changes
         window.Livewire.hook('component.init', () => this.updateLivewire());
         window.Livewire.hook('commit', () => this.updateLivewire());
@@ -33,10 +31,6 @@ export default {
         window.addEventListener('livewire:initialized', () => this.updateLivewire());
         window.addEventListener('livewire:load', () => this.updateLivewire());
         window.addEventListener('livewire:update', () => this.updateLivewire());
-      } else if (typeof window.Livewire.hooks === 'object') {
-        // Fallback for Livewire 2
-        window.Livewire.hooks.afterDomUpdate(() => this.updateLivewire());
-      }
 
       // Set up a periodic check for new components (helpful for lazy-loaded components)
       this.updateInterval = setInterval(() => {
@@ -96,15 +90,8 @@ export default {
 
       try {
         let currentCount = 0;
+        currentCount = Object.keys(window.Livewire.all()).length;
 
-        // Count current components based on Livewire version
-        if (typeof window.Livewire.all === 'function') {
-          currentCount = Object.keys(window.Livewire.all()).length;
-        } else if (window.Livewire.components) {
-          currentCount = window.Livewire.components.components.size;
-        }
-
-        // If component count has changed, update the list
         if (currentCount !== this.lastComponentCount) {
           this.updateLivewire();
           this.lastComponentCount = currentCount;
@@ -116,57 +103,13 @@ export default {
 
     updateLivewire() {
       if (!window.Livewire) return;
-
       try {
-        if (typeof window.Livewire.all === 'function') {
-          // Livewire 2
-          this.livewire = window.Livewire.all();
-        } else if (window.Livewire.components) {
-          // Livewire 3
-          const components = [];
-          window.Livewire.components.components.forEach(component => {
-            components.push({
-              id: component.id,
-              name: component.name,
-              ephemeral: component.snapshot.data
-            });
-          });
-          this.livewire = components;
-          this.lastComponentCount = components.length;
-        }
+        this.livewire = window.Livewire.all();
       } catch (error) {
         console.error('Error updating Livewire components:', error);
       }
-    },
-
-    updateLivewireProperty(event) {
-      try {
-        const {index, property, value} = event;
-        const component = this.livewire[index];
-
-        if (!component) return;
-
-
-        if (window.Livewire.components) {
-          // Livewire 3
-          // Find the component by ID
-          const livewireComponent = window.Livewire.find(component.id);
-          if (livewireComponent) {
-            // Use the appropriate method to update the property
-            livewireComponent.set(property, value);
-          }
-        } else if (typeof window.Livewire.find === 'function') {
-          // Livewire 2 approach
-          const livewireComponent = window.Livewire.find(component.id);
-          if (livewireComponent && livewireComponent.$wire) {
-            livewireComponent.$wire.set(property, value);
-          }
-        }
-      } catch (error) {
-        console.error('Error updating Livewire property:', error);
-      }
     }
-  },
+  }
 }
 </script>
 
@@ -182,7 +125,6 @@ export default {
           :index="index"
           :name="item.name"
           :livewire-properties="item.ephemeral"
-          @update-livewire-property="updateLivewireProperty"
           :key="item.id"
       />
     </div>

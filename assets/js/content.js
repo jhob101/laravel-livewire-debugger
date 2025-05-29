@@ -8,7 +8,7 @@ function checkForLivewire() {
 
 // Initialise the debugger
 function initializeDebugger() {
-  console.log('Livewire Debugger: Initializing...');
+  console.log('Livewire Debugger: Initialising...');
 
   // Create container for the debugger
   const existingContainer = document.getElementById('livewire-debugger-container');
@@ -25,7 +25,7 @@ function initializeDebugger() {
   const app = createApp(App);
   app.mount(container);
 
-  console.log('Livewire Debugger: Initialized');
+  console.log('Livewire Debugger: Initialised');
 }
 
 function init() {
