@@ -7,7 +7,7 @@ Very simple extension that helps debugging Livewire components from Vuejs devtoo
 
 1. Clone the following repository
 2. Run `npm install` from the root folder
-3. Run `npm run dev`
+3. Run `npm run build`
 4. Go to `chrome://extensions` in your browser
 5. Double check if Developer mode is ON, if not you need to toggle from the top-right corner
 6. Click the **Load Unpacked**
