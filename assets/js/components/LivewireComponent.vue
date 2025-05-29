@@ -1,5 +1,4 @@
 <script>
-
 export default {
     name: "LivewireComponent",
     props: {
@@ -16,20 +15,16 @@ export default {
             type: Object
         }
     },
+    emits: ['update-livewire-property'],
     watch: {
-        properties: {
-            handler(newVal, oldVal) {
-                const _this = this
-                Object.keys(newVal).forEach(
-                    function (key) {
-                        _this.$emit('update-livewire-property', {
-                            index: _this.index,
-                            property: key,
-                            value: newVal[key]
-                        })
-                    }
-                )
-            }, deep: true
+        livewireProperties: {
+            handler(newVal) {
+                if (newVal) {
+                    this.properties = JSON.parse(JSON.stringify(newVal));
+                }
+            },
+            immediate: true,
+            deep: true
         }
     },
     data() {
@@ -38,11 +33,25 @@ export default {
         }
     },
     created() {
-        this.properties = this.livewireProperties;
+        if (this.livewireProperties) {
+            this.properties = JSON.parse(JSON.stringify(this.livewireProperties));
+        }
     },
+    methods: {
+        updateProperty(key, value) {
+            // Only emit the event when a user explicitly changes a value
+            this.$emit('update-livewire-property', {
+                index: this.index,
+                property: key,
+                value: value
+            });
+        }
+    }
 }
 </script>
 
-<template></template>
+<template>
+</template>
 
-<style scoped></style>
+<style scoped>
+</style>
