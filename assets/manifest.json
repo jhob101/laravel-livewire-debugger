@@ -1,8 +1,8 @@
 {
     "name": "Livewire Debugger",
     "manifest_version": 3,
-    "version": "0.0.1",
-    "description": "The Livewire Debugger",
+    "version": "0.1.4",
+    "description": "Debug Livewire in Vue.js devtools",
     "icons": {
         "16": "images/livewire.png",
         "32": "images/livewire.png",
@@ -13,6 +13,7 @@
         {
             "matches": ["<all_urls>"],
             "js": ["js/content.js"],
+            "css": ["css/style.css"],
             "world": "MAIN"
         }
     ]

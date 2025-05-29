@@ -1,9 +1,13 @@
 # Laravel Livewire Debugger
 
-
 ![screenshot](./doc/laravel-livewire-debugger.png)
 
-Very simple extension that helps debugging Livewire components from Vuejs devtools.
+## Changelog
+
+- [2025-05-29] Updated to work with Livewire 3
+
+## Installation
+Very simple extension that helps debugging Livewire components from Vue.js devtools.
 
 1. Clone the following repository
 2. Run `npm install` from the root folder

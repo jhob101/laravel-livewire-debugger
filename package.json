@@ -2,7 +2,8 @@
   "private": true,
   "name": "laravel-livewire-debugger",
   "description": "Livewire Debugger using VueJs devtools",
-  "version": "0.1.1",
+  "version": "0.1.4",
+  "author": "John Hobson",
   "scripts": {
     "dev": "vite",
     "build": "cross-env NODE_ENV=development node build-extension.js",
