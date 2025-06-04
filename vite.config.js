@@ -10,7 +10,7 @@ export default defineConfig({
     // Don't generate HTML file
     manifest: false,
     cssCodeSplit: false,
-    minify: 'terser',
+    minify: 'esbuild',
     rollupOptions: {
       input: resolve(__dirname, 'assets/js/content.js'),
       output: {

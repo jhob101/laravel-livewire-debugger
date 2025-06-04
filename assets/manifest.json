@@ -1,7 +1,7 @@
 {
     "name": "Livewire Debugger",
     "manifest_version": 3,
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Debug Livewire in Vue.js devtools",
     "icons": {
         "16": "images/livewire.png",
